@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class UseCase6TrainConsistMgmnt {
+public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
         System.out.println("==========================================");
