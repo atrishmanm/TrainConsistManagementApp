@@ -1,7 +1,7 @@
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class UseCase5TrainConsistMgmnt {
+public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
