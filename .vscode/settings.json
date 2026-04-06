@@ -1,6 +1,5 @@
 {
     "java.project.sourcePaths": [
-        "src/main",
-        "src/test"
+        "src"
     ]
 }
