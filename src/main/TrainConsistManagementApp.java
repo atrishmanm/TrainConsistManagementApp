@@ -1,4 +1,4 @@
-package java;
+
 public class TrainConsistManagementApp {
 
     static class CargoSafetyException extends RuntimeException {
