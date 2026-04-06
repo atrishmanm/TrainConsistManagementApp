@@ -6,53 +6,53 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainConsistManagementApp {
 
     @Test
-    void testSearch_BogieFound() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        String searchId = "BG309";
+    void testSort_BasicAlphabeticalSorting() {
+        String[] names = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+        String[] expected = {"AC Chair", "First Class", "General", "Luxury", "Sleeper"};
         
-        // Accessing main package class using fully qualified name
-        boolean result = main.TrainConsistManagementApp.linearSearch(bogieIds, searchId);
+        // Accessing the main class method
+        main.TrainConsistManagementApp.sortBogieNames(names);
         
-        assertTrue(result, "Search should return true for an existing bogie ID.");
+        assertArrayEquals(expected, names);
     }
 
     @Test
-    void testSearch_BogieNotFound() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        String searchId = "BG999";
+    void testSort_UnsortedInput() {
+        String[] names = {"Luxury", "General", "Sleeper", "AC Chair"};
+        String[] expected = {"AC Chair", "General", "Luxury", "Sleeper"};
         
-        boolean result = main.TrainConsistManagementApp.linearSearch(bogieIds, searchId);
+        main.TrainConsistManagementApp.sortBogieNames(names);
         
-        assertFalse(result, "Search should return false for a non-existent bogie ID.");
+        assertArrayEquals(expected, names);
     }
 
     @Test
-    void testSearch_FirstElementMatch() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        String searchId = "BG101";
+    void testSort_AlreadySortedArray() {
+        String[] names = {"AC Chair", "First Class", "General"};
+        String[] expected = {"AC Chair", "First Class", "General"};
         
-        boolean result = main.TrainConsistManagementApp.linearSearch(bogieIds, searchId);
+        main.TrainConsistManagementApp.sortBogieNames(names);
         
-        assertTrue(result, "Search should return true when the first element matches.");
+        assertArrayEquals(expected, names);
     }
 
     @Test
-    void testSearch_LastElementMatch() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        String searchId = "BG550";
+    void testSort_DuplicateBogieNames() {
+        String[] names = {"Sleeper", "AC Chair", "Sleeper", "General"};
+        String[] expected = {"AC Chair", "General", "Sleeper", "Sleeper"};
         
-        boolean result = main.TrainConsistManagementApp.linearSearch(bogieIds, searchId);
+        main.TrainConsistManagementApp.sortBogieNames(names);
         
-        assertTrue(result, "Search should return true when the last element matches.");
+        assertArrayEquals(expected, names);
     }
 
     @Test
-    void testSearch_SingleElementArray() {
-        String[] bogieIds = {"BG101"};
-        String searchId = "BG101";
+    void testSort_SingleElementArray() {
+        String[] names = {"Sleeper"};
+        String[] expected = {"Sleeper"};
         
-        boolean result = main.TrainConsistManagementApp.linearSearch(bogieIds, searchId);
+        main.TrainConsistManagementApp.sortBogieNames(names);
         
-        assertTrue(result, "Search should work correctly for an array with a single element.");
+        assertArrayEquals(expected, names);
     }
 }
