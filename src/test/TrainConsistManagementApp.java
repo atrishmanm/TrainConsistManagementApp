@@ -6,45 +6,41 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainConsistManagementApp {
 
     @Test
-    void testBinarySearch_BogieFound() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG309"));
+    void testSearch_ThrowsExceptionWhenEmpty() {
+        String[] emptyBogies = {};
+        // Verifies that the system throws IllegalStateException when searching an empty array
+        assertThrows(IllegalStateException.class, () -> {
+            main.TrainConsistManagementApp.searchWithValidation(emptyBogies, "BG101");
+        }, "Should throw IllegalStateException when no bogies are available.");
     }
 
     @Test
-    void testBinarySearch_BogieNotFound() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertFalse(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG999"));
+    void testSearch_AllowsSearchWhenDataExists() {
+        String[] bogieIds = {"BG101", "BG205"};
+        // Verifies that search executes without exception when data is present
+        assertDoesNotThrow(() -> {
+            main.TrainConsistManagementApp.searchWithValidation(bogieIds, "BG101");
+        });
     }
 
     @Test
-    void testBinarySearch_FirstElementMatch() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
+    void testSearch_BogieFoundAfterValidation() {
+        String[] bogieIds = {"BG101", "BG205", "BG309"};
+        boolean result = main.TrainConsistManagementApp.searchWithValidation(bogieIds, "BG205");
+        assertTrue(result, "Bogie should be found correctly after validation passes.");
     }
 
     @Test
-    void testBinarySearch_LastElementMatch() {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG550"));
+    void testSearch_BogieNotFoundAfterValidation() {
+        String[] bogieIds = {"BG101", "BG205", "BG309"};
+        boolean result = main.TrainConsistManagementApp.searchWithValidation(bogieIds, "BG999");
+        assertFalse(result, "Should return false if validation passes but ID is not in the list.");
     }
 
     @Test
-    void testBinarySearch_SingleElementArray() {
+    void testSearch_SingleElementValidCase() {
         String[] bogieIds = {"BG101"};
-        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
-    }
-
-    @Test
-    void testBinarySearch_EmptyArray() {
-        String[] bogieIds = {};
-        assertFalse(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
-    }
-
-    @Test
-    void testBinarySearch_UnsortedInputHandled() {
-        // Input is unsorted; logic should handle sorting first
-        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
-        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG205"));
+        boolean result = main.TrainConsistManagementApp.searchWithValidation(bogieIds, "BG101");
+        assertTrue(result, "Search should work for a single-element array.");
     }
 }
