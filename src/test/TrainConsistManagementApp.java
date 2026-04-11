@@ -6,42 +6,45 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainConsistManagementApp {
 
     @Test
-    void testSort_BasicSorting() {
-        int[] capacities = {72, 56, 24, 70, 60};
-        int[] expected = {24, 56, 60, 70, 72};
-        main.TrainConsistManagementApp.bubbleSort(capacities);
-        assertArrayEquals(expected, capacities);
+    void testBinarySearch_BogieFound() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG309"));
     }
 
     @Test
-    void testSort_AlreadySortedArray() {
-        int[] capacities = {24, 56, 60, 70, 72};
-        int[] expected = {24, 56, 60, 70, 72};
-        main.TrainConsistManagementApp.bubbleSort(capacities);
-        assertArrayEquals(expected, capacities);
+    void testBinarySearch_BogieNotFound() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertFalse(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG999"));
     }
 
     @Test
-    void testSort_DuplicateValues() {
-        int[] capacities = {72, 56, 56, 24};
-        int[] expected = {24, 56, 56, 72};
-        main.TrainConsistManagementApp.bubbleSort(capacities);
-        assertArrayEquals(expected, capacities);
+    void testBinarySearch_FirstElementMatch() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
     }
 
     @Test
-    void testSort_SingleElementArray() {
-        int[] capacities = {50};
-        int[] expected = {50};
-        main.TrainConsistManagementApp.bubbleSort(capacities);
-        assertArrayEquals(expected, capacities);
+    void testBinarySearch_LastElementMatch() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG550"));
     }
 
     @Test
-    void testSort_AllEqualValues() {
-        int[] capacities = {40, 40, 40};
-        int[] expected = {40, 40, 40};
-        main.TrainConsistManagementApp.bubbleSort(capacities);
-        assertArrayEquals(expected, capacities);
+    void testBinarySearch_SingleElementArray() {
+        String[] bogieIds = {"BG101"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_EmptyArray() {
+        String[] bogieIds = {};
+        assertFalse(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_UnsortedInputHandled() {
+        // Input is unsorted; logic should handle sorting first
+        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG205"));
     }
 }
