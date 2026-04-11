@@ -6,53 +6,45 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainConsistManagementApp {
 
     @Test
-    void testSort_BasicAlphabeticalSorting() {
-        String[] names = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
-        String[] expected = {"AC Chair", "First Class", "General", "Luxury", "Sleeper"};
-        
-        // Accessing the main class method
-        main.TrainConsistManagementApp.sortBogieNames(names);
-        
-        assertArrayEquals(expected, names);
+    void testBinarySearch_BogieFound() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG309"));
     }
 
     @Test
-    void testSort_UnsortedInput() {
-        String[] names = {"Luxury", "General", "Sleeper", "AC Chair"};
-        String[] expected = {"AC Chair", "General", "Luxury", "Sleeper"};
-        
-        main.TrainConsistManagementApp.sortBogieNames(names);
-        
-        assertArrayEquals(expected, names);
+    void testBinarySearch_BogieNotFound() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertFalse(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG999"));
     }
 
     @Test
-    void testSort_AlreadySortedArray() {
-        String[] names = {"AC Chair", "First Class", "General"};
-        String[] expected = {"AC Chair", "First Class", "General"};
-        
-        main.TrainConsistManagementApp.sortBogieNames(names);
-        
-        assertArrayEquals(expected, names);
+    void testBinarySearch_FirstElementMatch() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
     }
 
     @Test
-    void testSort_DuplicateBogieNames() {
-        String[] names = {"Sleeper", "AC Chair", "Sleeper", "General"};
-        String[] expected = {"AC Chair", "General", "Sleeper", "Sleeper"};
-        
-        main.TrainConsistManagementApp.sortBogieNames(names);
-        
-        assertArrayEquals(expected, names);
+    void testBinarySearch_LastElementMatch() {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG550"));
     }
 
     @Test
-    void testSort_SingleElementArray() {
-        String[] names = {"Sleeper"};
-        String[] expected = {"Sleeper"};
-        
-        main.TrainConsistManagementApp.sortBogieNames(names);
-        
-        assertArrayEquals(expected, names);
+    void testBinarySearch_SingleElementArray() {
+        String[] bogieIds = {"BG101"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_EmptyArray() {
+        String[] bogieIds = {};
+        assertFalse(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_UnsortedInputHandled() {
+        // Input is unsorted; logic should handle sorting first
+        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+        assertTrue(main.TrainConsistManagementApp.binarySearch(bogieIds, "BG205"));
     }
 }
